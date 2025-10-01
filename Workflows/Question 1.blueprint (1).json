@@ -1,0 +1,207 @@
+{
+    "name": "Question 1",
+    "flow": [
+        {
+            "id": 1,
+            "module": "weather:ActionGetCurrentWeather",
+            "version": 1,
+            "parameters": {},
+            "mapper": {
+                "city": "Binghamton, New York ",
+                "type": "name"
+            },
+            "metadata": {
+                "designer": {
+                    "x": 0,
+                    "y": 0
+                },
+                "restore": {
+                    "expect": {
+                        "type": {
+                            "label": "cities"
+                        }
+                    }
+                },
+                "expect": [
+                    {
+                        "name": "type",
+                        "type": "select",
+                        "label": "I want to enter a location by",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "name",
+                                "coords"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "city",
+                        "type": "text",
+                        "label": "City",
+                        "required": true
+                    }
+                ]
+            }
+        },
+        {
+            "id": 2,
+            "module": "google-email:ActionSendEmail",
+            "version": 2,
+            "parameters": {
+                "account": 5418755
+            },
+            "mapper": {
+                "cc": [],
+                "to": [
+                    "jscharf3@binghamton.edu",
+                    "nlagana1@binghamton.edu"
+                ],
+                "bcc": [],
+                "from": "",
+                "html": "<!DOCTYPE html>\r\n<html>\r\n  <head>\r\n    <meta charset=\"UTF-8\">\r\n    <style>\r\n      body {\r\n        font-family: Arial, sans-serif;\r\n        margin: 0;\r\n        padding: 20px;\r\n        background: #f5f7fa;\r\n      }\r\n      .container {\r\n        max-width: 600px;\r\n        margin: auto;\r\n        background: #ffffff;\r\n        padding: 20px;\r\n        border-radius: 10px;\r\n        box-shadow: 0 2px 6px rgba(0,0,0,0.1);\r\n      }\r\n      h1 {\r\n        color: #1a73e8;\r\n        margin-bottom: 5px;\r\n      }\r\n      h3 {\r\n        color: #555;\r\n        margin-top: 0;\r\n        font-weight: normal;\r\n      }\r\n      .weather-data {\r\n        margin-top: 20px;\r\n      }\r\n      .weather-data p {\r\n        font-size: 16px;\r\n        margin: 8px 0;\r\n      }\r\n      .footer {\r\n        margin-top: 20px;\r\n        font-size: 12px;\r\n        color: #888;\r\n        text-align: center;\r\n      }\r\n    </style>\r\n  </head>\r\n  <body>\r\n    <div class=\"container\">\r\n      <h1>Daily Weather Report</h1>\r\n      <h3>Binghamton, New York</h3>\r\n      \r\n      <div class=\"weather-data\">\r\n        <p><strong>Temperature:</strong> {{1.temperature}} °C</p>\r\n        <p><strong>Humidity:</strong> {{1.humidity}} %</p>\r\n        <p><strong>Wind:</strong> {{1.wind}}</p>\r\n        <p><strong>Cloud Cover:</strong> {{1.clouds}} %</p>\r\n      </div>\r\n      \r\n      <div class=\"footer\">\r\n        Generated automatically by Make.com\r\n      </div>\r\n    </div>\r\n  </body>\r\n</html>\r\n",
+                "subject": "Daily Weather Report",
+                "attachments": []
+            },
+            "metadata": {
+                "designer": {
+                    "x": 300,
+                    "y": 0
+                },
+                "restore": {
+                    "expect": {
+                        "cc": {
+                            "mode": "chose"
+                        },
+                        "to": {
+                            "mode": "chose",
+                            "items": [
+                                null,
+                                null
+                            ]
+                        },
+                        "bcc": {
+                            "mode": "chose"
+                        },
+                        "attachments": {
+                            "mode": "chose"
+                        }
+                    },
+                    "parameters": {
+                        "account": {
+                            "data": {
+                                "scoped": "true",
+                                "connection": "google-restricted"
+                            },
+                            "label": "My Google Connection (jscharf3) (jscharf3@binghamton.edu)"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "account",
+                        "type": "account:google-restricted",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "from",
+                        "type": "text",
+                        "label": "From"
+                    },
+                    {
+                        "name": "to",
+                        "spec": {
+                            "name": "value",
+                            "type": "email",
+                            "label": "Email address",
+                            "required": true
+                        },
+                        "type": "array",
+                        "label": "To",
+                        "required": true
+                    },
+                    {
+                        "name": "subject",
+                        "type": "text",
+                        "label": "Subject"
+                    },
+                    {
+                        "name": "html",
+                        "type": "text",
+                        "label": "Content"
+                    },
+                    {
+                        "name": "attachments",
+                        "spec": [
+                            {
+                                "name": "fileName",
+                                "type": "filename",
+                                "label": "File name",
+                                "required": true,
+                                "semantic": "file:name"
+                            },
+                            {
+                                "name": "data",
+                                "type": "buffer",
+                                "label": "Data",
+                                "required": true,
+                                "semantic": "file:data"
+                            },
+                            {
+                                "name": "cid",
+                                "type": "text",
+                                "label": "Content-ID"
+                            }
+                        ],
+                        "type": "array",
+                        "label": "Attachments"
+                    },
+                    {
+                        "name": "cc",
+                        "spec": {
+                            "name": "value",
+                            "type": "email",
+                            "label": "Email address"
+                        },
+                        "type": "array",
+                        "label": "Copy recipient"
+                    },
+                    {
+                        "name": "bcc",
+                        "spec": {
+                            "name": "value",
+                            "type": "email",
+                            "label": "Email address"
+                        },
+                        "type": "array",
+                        "label": "Blind copy recipient"
+                    }
+                ]
+            }
+        }
+    ],
+    "metadata": {
+        "instant": false,
+        "version": 1,
+        "scenario": {
+            "roundtrips": 1,
+            "maxErrors": 3,
+            "autoCommit": true,
+            "autoCommitTriggerLast": true,
+            "sequential": false,
+            "slots": null,
+            "confidential": false,
+            "dataloss": false,
+            "dlq": false,
+            "freshVariables": false
+        },
+        "designer": {
+            "orphans": []
+        },
+        "zone": "us2.make.com",
+        "notes": []
+    }
+}
